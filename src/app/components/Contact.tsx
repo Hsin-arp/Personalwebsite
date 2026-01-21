@@ -1,9 +1,11 @@
-import { Mail, MapPin, Phone, Github, Linkedin, Twitter } from "lucide-react";
+import { Mail, MapPin, Phone, Github, Linkedin, Twitter, Loader2, CheckCircle2, AlertCircle } from "lucide-react";
 import { Button } from "./ui/button";
 import { Input } from "./ui/input";
 import { Textarea } from "./ui/textarea";
 import { useState } from "react";
-import { motion } from "motion/react";
+import { motion, AnimatePresence } from "motion/react";
+import { contactApi, ApiError } from "../../lib/api";
+import { Alert, AlertDescription } from "./ui/alert";
 
 export function Contact() {
   const [formData, setFormData] = useState({
@@ -11,13 +13,58 @@ export function Contact() {
     email: "",
     message: "",
   });
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submitStatus, setSubmitStatus] = useState<{
+    type: 'success' | 'error' | null;
+    message: string;
+  }>({ type: null, message: '' });
+  const [errors, setErrors] = useState<Record<string, string>>({});
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    // Handle form submission
-    console.log("Form submitted:", formData);
-    alert("Thank you for your message! I'll get back to you soon.");
-    setFormData({ name: "", email: "", message: "" });
+    setIsSubmitting(true);
+    setSubmitStatus({ type: null, message: '' });
+    setErrors({});
+
+    try {
+      const response = await contactApi.submit(formData);
+      
+      if (response.success) {
+        setSubmitStatus({
+          type: 'success',
+          message: response.message || "Thank you for your message! I'll get back to you soon.",
+        });
+        setFormData({ name: "", email: "", message: "" });
+        
+        // Clear success message after 5 seconds
+        setTimeout(() => {
+          setSubmitStatus({ type: null, message: '' });
+        }, 5000);
+      }
+    } catch (error) {
+      if (error instanceof ApiError) {
+        // Handle validation errors
+        if (error.errors && error.errors.length > 0) {
+          const fieldErrors: Record<string, string> = {};
+          error.errors.forEach((err) => {
+            fieldErrors[err.field] = err.message;
+          });
+          setErrors(fieldErrors);
+        }
+        
+        setSubmitStatus({
+          type: 'error',
+          message: error.message || 'Failed to send message. Please try again.',
+        });
+      } else {
+        setSubmitStatus({
+          type: 'error',
+          message: 'An unexpected error occurred. Please try again later.',
+        });
+      }
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   const handleChange = (
@@ -125,13 +172,40 @@ export function Contact() {
             transition={{ duration: 0.6 }}
           >
             <form onSubmit={handleSubmit} className="space-y-4">
+              {/* Success/Error Messages */}
+              <AnimatePresence>
+                {submitStatus.type && (
+                  <motion.div
+                    initial={{ opacity: 0, y: -10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0, y: -10 }}
+                  >
+                    <Alert
+                      variant={submitStatus.type === 'success' ? 'default' : 'destructive'}
+                      className={
+                        submitStatus.type === 'success'
+                          ? 'border-green-500 bg-green-50 text-green-900'
+                          : ''
+                      }
+                    >
+                      {submitStatus.type === 'success' ? (
+                        <CheckCircle2 className="h-4 w-4 text-green-600" />
+                      ) : (
+                        <AlertCircle className="h-4 w-4" />
+                      )}
+                      <AlertDescription>{submitStatus.message}</AlertDescription>
+                    </Alert>
+                  </motion.div>
+                )}
+              </AnimatePresence>
+
               <motion.div
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, margin: "-100px" }}
                 transition={{ duration: 0.5, delay: 0.1 }}
               >
-                <label htmlFor="name" className="block mb-2">
+                <label htmlFor="name" className="block mb-2 font-medium">
                   Name
                 </label>
                 <Input
@@ -141,7 +215,12 @@ export function Contact() {
                   onChange={handleChange}
                   placeholder="Your Name"
                   required
+                  disabled={isSubmitting}
+                  className={errors.name ? 'border-red-500' : ''}
                 />
+                {errors.name && (
+                  <p className="mt-1 text-sm text-red-600">{errors.name}</p>
+                )}
               </motion.div>
               
               <motion.div
@@ -150,7 +229,7 @@ export function Contact() {
                 viewport={{ once: true, margin: "-100px" }}
                 transition={{ duration: 0.5, delay: 0.2 }}
               >
-                <label htmlFor="email" className="block mb-2">
+                <label htmlFor="email" className="block mb-2 font-medium">
                   Email
                 </label>
                 <Input
@@ -161,7 +240,12 @@ export function Contact() {
                   onChange={handleChange}
                   placeholder="your.email@example.com"
                   required
+                  disabled={isSubmitting}
+                  className={errors.email ? 'border-red-500' : ''}
                 />
+                {errors.email && (
+                  <p className="mt-1 text-sm text-red-600">{errors.email}</p>
+                )}
               </motion.div>
               
               <motion.div
@@ -170,7 +254,7 @@ export function Contact() {
                 viewport={{ once: true, margin: "-100px" }}
                 transition={{ duration: 0.5, delay: 0.3 }}
               >
-                <label htmlFor="message" className="block mb-2">
+                <label htmlFor="message" className="block mb-2 font-medium">
                   Message
                 </label>
                 <Textarea
@@ -181,7 +265,12 @@ export function Contact() {
                   placeholder="Your message..."
                   rows={6}
                   required
+                  disabled={isSubmitting}
+                  className={errors.message ? 'border-red-500' : ''}
                 />
+                {errors.message && (
+                  <p className="mt-1 text-sm text-red-600">{errors.message}</p>
+                )}
               </motion.div>
               
               <motion.div
@@ -189,11 +278,23 @@ export function Contact() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, margin: "-100px" }}
                 transition={{ duration: 0.5, delay: 0.4 }}
-                whileHover={{ scale: 1.02 }}
-                whileTap={{ scale: 0.98 }}
+                whileHover={!isSubmitting ? { scale: 1.02 } : {}}
+                whileTap={!isSubmitting ? { scale: 0.98 } : {}}
               >
-                <Button type="submit" className="w-full" size="lg">
-                  Send Message
+                <Button
+                  type="submit"
+                  className="w-full"
+                  size="lg"
+                  disabled={isSubmitting}
+                >
+                  {isSubmitting ? (
+                    <>
+                      <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                      Sending...
+                    </>
+                  ) : (
+                    'Send Message'
+                  )}
                 </Button>
               </motion.div>
             </form>

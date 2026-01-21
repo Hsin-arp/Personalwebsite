@@ -1,0 +1,17 @@
+git status
+# Should show only tracked files or properly ignored onesnode_modules
+dist
+.DS_Store
+*.log
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+.cache
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+coverage/
