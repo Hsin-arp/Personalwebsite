@@ -10,10 +10,7 @@
     "dev": "vite",
     "predeploy": "npm run build",
     "postbuild": "node --input-type=module -e \"import { writeFileSync } from 'fs'; writeFileSync('dist/.nojekyll', '');\"",
-    "deploy": "gh-pages -d dist",
-    "server:dev": "cd server && npm run dev",
-    "server:start": "cd server && npm start",
-    "server:install": "cd server && npm install"
+    "deploy": "gh-pages -d dist"
   },
   "dependencies": {
     "react": "18.3.1",
