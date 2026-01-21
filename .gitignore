@@ -1,5 +1,4 @@
-git status
-# Should show only tracked files or properly ignored onesnode_modules
+node_modules
 dist
 .DS_Store
 *.log
