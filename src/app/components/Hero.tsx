@@ -11,8 +11,8 @@ export function Hero() {
   };
 
   // Split the role text into parts for animation
-  const roles = ["Web Developer", "Designer", "Creative Thinker"];
-  const roleText = "Web Developer | Designer | Creative Thinker";
+  const roles = ["Frontend Developer", "UI/UX Designer", "QA Engineer"];
+  const roleText = "Frontend Developer | UI/UX Designer | QA Engineer";
   
   // Split name for letter animation
   const name = "Prabin Shrestha";

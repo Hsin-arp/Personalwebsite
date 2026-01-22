@@ -1,5 +1,6 @@
-import { Code, Palette, Database, Smartphone, Globe, Zap } from "lucide-react";
-import { motion } from "motion/react";
+import { Code, Palette, Bug } from "lucide-react";
+import { motion } from "framer-motion";
+import AnimatedSection from "./AnimatedSection";
 
 export function Skills() {
   const skills = [
@@ -14,16 +15,6 @@ export function Skills() {
       shadow: "group-hover:shadow-blue-100",
     },
     {
-      icon: <Database size={40} />,
-      title: "Backend Development",
-      description: "Node.js, Python, APIs, Database Design",
-      gradient: "from-emerald-500 to-teal-400",
-      hexColor: "#059669",
-      bg: "bg-emerald-50",
-      border: "group-hover:border-emerald-200",
-      shadow: "group-hover:shadow-emerald-100",
-    },
-    {
       icon: <Palette size={40} />,
       title: "UI/UX Design",
       description: "Figma, Adobe XD, User Research, Prototyping",
@@ -34,34 +25,15 @@ export function Skills() {
       shadow: "group-hover:shadow-purple-100",
     },
     {
-      icon: <Smartphone size={40} />,
-      title: "Responsive Design",
-      description: "Mobile-first approach, Cross-browser compatibility",
-      gradient: "from-orange-500 to-red-400",
-      hexColor: "#ea580c",
-      bg: "bg-orange-50",
-      border: "group-hover:border-orange-200",
-      shadow: "group-hover:shadow-orange-100",
-    },
-    {
-      icon: <Globe size={40} />,
-      title: "Web Technologies",
-      description: "Modern frameworks, Progressive Web Apps",
-      gradient: "from-indigo-500 to-violet-400",
-      hexColor: "#6366f1",
-      bg: "bg-indigo-50",
-      border: "group-hover:border-indigo-200",
-      shadow: "group-hover:shadow-indigo-100",
-    },
-    {
-      icon: <Zap size={40} />,
-      title: "Performance",
-      description: "Optimization, SEO, Accessibility",
-      gradient: "from-amber-500 to-yellow-400",
-      hexColor: "#d97706",
-      bg: "bg-amber-50",
-      border: "group-hover:border-amber-200",
-      shadow: "group-hover:shadow-amber-100",
+      icon: <Bug size={40} />,
+      title: "QA & Software Testing",
+      description:
+        "Manual Testing, Test Cases, Bug Reporting, Exploratory Testing Ensuring software quality through detailed testing, clear bug reports, and real-world user scenarios.",
+      gradient: "from-rose-500 to-pink-400",
+      hexColor: "#e11d48",
+      bg: "bg-rose-50",
+      border: "group-hover:border-rose-200",
+      shadow: "group-hover:shadow-rose-100",
     },
   ];
 
@@ -91,7 +63,7 @@ export function Skills() {
   };
 
   return (
-    <section id="skills" className="py-24 px-4 bg-gray-50/50">
+    <AnimatedSection id="skills" className="py-24 px-4 bg-gray-50/50" stagger>
       <div className="max-w-6xl mx-auto">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -158,6 +130,6 @@ export function Skills() {
           ))}
         </motion.div>
       </div>
-    </section>
+    </AnimatedSection>
   );
 }

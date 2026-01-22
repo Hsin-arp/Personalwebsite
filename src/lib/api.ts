@@ -1,5 +1,4 @@
 // lib/api.ts
-export const API_BASE_URL = import.meta.env.VITE_API_URL || "http://localhost:5000/api";
 
 /**
  * API response interface
@@ -32,8 +31,6 @@ async function apiFetch<T>(
   endpoint: string,
   options: RequestInit = {}
 ): Promise<ApiResponse<T>> {
-  const url = `${API_BASE_URL}${endpoint}`;
-
   const config: RequestInit = {
     ...options,
     headers: {
@@ -43,11 +40,16 @@ async function apiFetch<T>(
   };
 
   try {
-    const res = await fetch(url, config);
+    // ✅ RELATIVE PATH — WORKS ON VERCEL
+    const res = await fetch(`/api${endpoint}`, config);
     const data: ApiResponse<T> = await res.json();
 
     if (!res.ok) {
-      throw new ApiError(data.message || "An error occurred", res.status, data.errors);
+      throw new ApiError(
+        data.message || "An error occurred",
+        res.status,
+        data.errors
+      );
     }
 
     return data;
@@ -55,7 +57,9 @@ async function apiFetch<T>(
     if (error instanceof ApiError) throw error;
 
     throw new ApiError(
-      error instanceof Error ? error.message : "Network error. Please check your connection.",
+      error instanceof Error
+        ? error.message
+        : "Network error. Please try again later.",
       0
     );
   }
@@ -75,12 +79,9 @@ export interface ContactFormData {
  */
 export const contactApi = {
   async submit(data: ContactFormData) {
-    return apiFetch<{ id: string; name: string; email: string; createdAt: string }>(
-      "/contact",
-      {
-        method: "POST",
-        body: JSON.stringify(data),
-      }
-    );
+    return apiFetch<{ id: string }>(`/contact`, {
+      method: "POST",
+      body: JSON.stringify(data),
+    });
   },
 };

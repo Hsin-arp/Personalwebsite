@@ -1,37 +1,44 @@
-import { motion } from "motion/react";
-import { Heart, Music, Camera, Plane, Trophy } from "lucide-react";
+import { motion } from "framer-motion";
+import AnimatedSection from "./AnimatedSection";
+import { Heart, Music, Camera, Plane, Trophy, BookOpen } from "lucide-react";
 
 export function Passion() {
   const passions = [
     {
       icon: <Heart size={48} />,
-      title: "Problem Solving",
-      description: "I love tackling complex challenges and finding elegant solutions through code.",
+      title: "Quality-Driven Problem Solving",
+      description: "I enjoy identifying edge cases, analyzing user flows, and solving issues that affect usability, functionality, and overall software quality.",
       color: "from-red-500 to-pink-500",
     },
     {
       icon: <Trophy size={48} />,
-      title: "Sports",
-      description: "Active in Football, Basketball, and Table Tennis—enjoying the teamwork and competition.",
+      title: "Sports & Team Spirit",
+      description: "I enjoy Football, Basketball, and Table Tennis—sports that build teamwork, focus, discipline, and quick decision-making.",
       color: "from-orange-500 to-amber-500",
     },
     {
       icon: <Music size={48} />,
-      title: "Music & Creativity",
-      description: "Music fuels my creativity and keeps me motivated while coding.",
+      title: "Music & Creative Thinking",
+      description: "Music fuels my creativity and helps me stay focused, motivated, and productive while designing and testing applications.",
       color: "from-purple-500 to-indigo-500",
     },
     {
       icon: <Camera size={48} />,
-      title: "Photography",
-      description: "Capturing moments and finding beauty in details, both in life and design.",
+      title: "Attention to Detail",
+      description: "I pay close attention to UI alignment, spacing, text clarity, and visual consistency across devices and browsers.",
       color: "from-green-500 to-teal-500",
     },
     {
       icon: <Plane size={48} />,
-      title: "Travel & Culture",
-      description: "Exploring new places and experiencing different cultures and perspectives.",
+      title: "User-Centric Perspective",
+      description: "I test applications from real user viewpoints, ensuring accessibility, usability, and smooth interaction flows.",
       color: "from-sky-500 to-blue-600",
+    },
+    {
+      icon: <BookOpen size={48} />,
+      title: "Continuous Learning",
+      description: "I’m always learning new tools, testing techniques, and best practices to improve software quality and user experience.",
+      color: "from-indigo-500 to-violet-500",
     },
   ];
 
@@ -59,7 +66,7 @@ export function Passion() {
   };
 
   return (
-    <section id="passion" className="py-20 px-4 bg-gradient-to-b from-white to-gray-50">
+    <AnimatedSection id="passion" className="py-20 px-4 bg-gradient-to-b from-white to-gray-50" stagger>
       <div className="max-w-6xl mx-auto">
         <motion.div
           initial={{ opacity: 0, y: -20 }}
@@ -151,6 +158,6 @@ export function Passion() {
           ))}
         </div>
       </div>
-    </section>
+    </AnimatedSection>
   );
 }

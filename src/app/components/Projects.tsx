@@ -1,7 +1,8 @@
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "./ui/card";
 import { Button } from "./ui/button";
 import { ExternalLink, Github } from "lucide-react";
-import { motion } from "motion/react";
+import { motion } from "framer-motion";
+import AnimatedSection from "./AnimatedSection";
 import { useState } from "react";
 
 export function Projects() {
@@ -9,22 +10,37 @@ export function Projects() {
 
   const projects = [
     {
-      title: "E-Commerce Platform",
-      description: "A full-stack e-commerce solution with payment integration, inventory management, and user authentication.",
-      image: "https://images.unsplash.com/photo-1622128082634-1f9742839291?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxtb2Rlcm4lMjBvZmZpY2UlMjB3b3JrfGVufDF8fHx8MTc2NTg5MzMxNXww&ixlib=rb-4.1.0&q=80&w=1080&utm_source=figma&utm_medium=referral",
-      tags: ["React", "Node.js", "MongoDB"],
+      title: "Personal Portfolio Website",
+      description:
+        "A modern personal website showcasing my frontend, UI/UX, and QA skills. Built with React and Tailwind CSS, featuring responsive design, clean UI, and optimized performance.",
+      image:
+        "https://images.unsplash.com/photo-1672676434074-20ff3b80a9c0?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxjcmVhdGl2ZSUyMGRldmVsb3BlciUyMGxhcHRvcHxlbnwxfHx8fDE3NjU4OTMzMTR8MA&ixlib=rb-4.1.0&q=80&w=1080&utm_source=figma&utm_medium=referral",
+      tags: ["React", "Tailwind CSS", "TypeScript"],
+      github: "https://github.com/Hsin-arp/Personalwebsite",
+      demo: "https://prabin369.com.np",
     },
     {
-      title: "Portfolio Website",
-      description: "A modern portfolio website built with React and Tailwind CSS, featuring smooth animations and responsive design.",
-      image: "https://images.unsplash.com/photo-1672676434074-20ff3b80a9c0?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxjcmVhdGl2ZSUyMGRldmVsb3BlciUyMGxhcHRvcHxlbnwxfHx8fDE3NjU4OTMzMTR8MA&ixlib=rb-4.1.0&q=80&w=1080&utm_source=figma&utm_medium=referral",
-      tags: ["React", "Tailwind", "TypeScript"],
+      title: "QA & Software Testing Projects",
+      description:
+        "Hands-on manual testing projects including test case creation, exploratory testing, and detailed bug reporting performed on real web applications through structured testing platforms.",
+      image:
+        "https://images.unsplash.com/photo-1588702547923-7093a6c3ba33?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8MTYwNTU1MzU2MA&ixlib=rb-1.2.1&q=80&w=1080",
+      tags: ["Manual Testing", "Test Cases", "Bug Reporting", "Exploratory Testing"],
+      github: "#",
+      report: "#",
+      actionLabel: "Reports (Coming Soon)",
+      actionUrl: "#",
     },
     {
-      title: "Task Management App",
-      description: "A collaborative task management application with real-time updates, team collaboration features, and analytics.",
-      image: "https://images.unsplash.com/photo-1728631191055-aa24c9eff7f6?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxwcm9mZXNzaW9uYWwlMjB3b3Jrc3BhY2UlMjBkZXNrfGVufDF8fHx8MTc2NTg1MTg0MHww&ixlib=rb-4.1.0&q=80&w=1080&utm_source=figma&utm_medium=referral",
-      tags: ["React", "Firebase", "Material-UI"],
+      title: "Website QA Case Study",
+      description:
+        "A QA case study demonstrating requirement analysis, test scenario design, defect tracking, and validation of UI/UX and functional flows.",
+      image:
+        "https://images.unsplash.com/photo-1555066931-4365d14bab8c?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8MTYwNTU1MzU2MA&ixlib=rb-1.2.1&q=80&w=1080",
+      tags: ["Test Scenarios", "Regression Testing", "UI Testing"],
+      github: "#",
+      actionLabel: "Details",
+      actionUrl: "#",
     },
   ];
 
@@ -56,7 +72,7 @@ export function Projects() {
   const titleLetters = titleText.split("");
 
   return (
-    <section id="projects" className="py-20 px-4 bg-gray-50">
+    <AnimatedSection id="projects" className="py-20 px-4 bg-gray-50" stagger>
       <div className="max-w-6xl mx-auto">
         <motion.h2
           initial={{ opacity: 0 }}
@@ -217,30 +233,60 @@ export function Projects() {
                         whileTap={{ scale: 0.95 }} 
                         className="flex-1"
                       >
-                        <Button variant="outline" size="sm" className="w-full">
-                          <motion.div
-                            whileHover={{ rotate: 360 }}
-                            transition={{ duration: 0.5 }}
-                          >
-                            <Github className="mr-2" size={16} />
-                          </motion.div>
-                          Code
-                        </Button>
+                        {/* Code button: only link if a valid external URL (not '#') */}
+                        {project.github && project.github !== "#" ? (
+                          <a href={project.github} target="_blank" rel="noreferrer" className="w-full block">
+                            <Button variant="outline" size="sm" className="w-full">
+                              <motion.div
+                                whileHover={{ rotate: 360 }}
+                                transition={{ duration: 0.5 }}
+                              >
+                                <Github className="mr-2" size={16} />
+                              </motion.div>
+                              Code
+                            </Button>
+                          </a>
+                        ) : (
+                          <Button variant="outline" size="sm" className="w-full" disabled>
+                            <motion.div
+                              whileHover={{ rotate: 360 }}
+                              transition={{ duration: 0.5 }}
+                            >
+                              <Github className="mr-2" size={16} />
+                            </motion.div>
+                            Code
+                          </Button>
+                        )}
                       </motion.div>
                       <motion.div 
                         whileHover={{ scale: 1.08, x: 3 }} 
                         whileTap={{ scale: 0.95 }} 
                         className="flex-1"
                       >
-                        <Button size="sm" className="w-full">
-                          <motion.div
-                            whileHover={{ rotate: -360 }}
-                            transition={{ duration: 0.5 }}
-                          >
-                            <ExternalLink className="mr-2" size={16} />
-                          </motion.div>
-                          Demo
-                        </Button>
+                        {/* Action/Demo/Reports button: link only if URL is valid and not '#' */}
+                        {((project.actionUrl && project.actionUrl !== "#") || (project.demo && project.demo !== "#")) ? (
+                          <a href={project.actionUrl || project.demo} target="_blank" rel="noreferrer" className="w-full block">
+                            <Button size="sm" className="w-full">
+                              <motion.div
+                                whileHover={{ rotate: -360 }}
+                                transition={{ duration: 0.5 }}
+                              >
+                                <ExternalLink className="mr-2" size={16} />
+                              </motion.div>
+                              {project.actionLabel ? project.actionLabel : project.demo ? "Demo" : "Visit"}
+                            </Button>
+                          </a>
+                        ) : (
+                          <Button size="sm" className="w-full" disabled>
+                            <motion.div
+                              whileHover={{ rotate: -360 }}
+                              transition={{ duration: 0.5 }}
+                            >
+                              <ExternalLink className="mr-2" size={16} />
+                            </motion.div>
+                            {project.actionLabel ? project.actionLabel : project.demo ? "Demo" : "Visit"}
+                          </Button>
+                        )}
                       </motion.div>
                     </div>
                   </CardContent>
@@ -250,6 +296,6 @@ export function Projects() {
           ))}
         </motion.div>
       </div>
-    </section>
+    </AnimatedSection>
   );
 }

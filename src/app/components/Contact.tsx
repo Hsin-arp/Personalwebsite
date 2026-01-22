@@ -1,4 +1,5 @@
 import { useState } from "react";
+import AnimatedSection from "./AnimatedSection";
 import { contactApi, ApiError, ContactFormData } from "../../lib/api";
 import { Input } from "./ui/input";
 import { Textarea } from "./ui/textarea";
@@ -46,7 +47,7 @@ export function Contact() {
   };
 
   return (
-    <section className="py-12 px-4 max-w-2xl mx-auto">
+    <AnimatedSection className="py-12 px-4 max-w-2xl mx-auto">
       <h2 className="text-3xl mb-6 text-center">Get in Touch</h2>
 
       {submitStatus.type && (
@@ -116,6 +117,6 @@ export function Contact() {
           )}
         </Button>
       </form>
-    </section>
+    </AnimatedSection>
   );
 }

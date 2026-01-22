@@ -1,8 +1,9 @@
-import { motion } from "motion/react";
+import { motion } from "framer-motion";
+import AnimatedSection from "./AnimatedSection";
 
 export function About() {
   return (
-    <section id="about" className="py-20 px-4 bg-gray-50">
+    <AnimatedSection id="about" className="py-20 px-4 bg-gray-50">
       <div className="max-w-6xl mx-auto">
         <motion.h2
           initial={{ opacity: 0, y: 30 }}
@@ -44,7 +45,7 @@ export function About() {
               transition={{ duration: 0.5, delay: 0.1 }}
               className="text-gray-700"
             >
-              Hello! I'm a passionate web developer with a love for creating beautiful, functional, and user-friendly websites. With years of experience in the field, I've worked on various projects ranging from small business websites to complex web applications.
+              Hello! I’m Prabin Shrestha, a frontend-focused developer with a strong interest in UI/UX design and software quality assurance. I enjoy building clean, responsive, and user-friendly web interfaces while ensuring they work correctly across real-world scenarios.
             </motion.p>
             <motion.p
               initial={{ opacity: 0, y: 20 }}
@@ -53,7 +54,7 @@ export function About() {
               transition={{ duration: 0.5, delay: 0.2 }}
               className="text-gray-700"
             >
-              My journey in web development started with a curiosity about how websites work, and it has grown into a fulfilling career where I get to solve problems and bring ideas to life through code.
+              I’m currently pursuing a Bachelor’s degree in Information Management, where I’ve developed a solid foundation in web technologies, design principles, and software testing. Alongside frontend development, I actively practice manual testing, writing test cases, performing exploratory testing, and creating clear bug reports to improve product quality.
             </motion.p>
             <motion.p
               initial={{ opacity: 0, y: 20 }}
@@ -62,7 +63,16 @@ export function About() {
               transition={{ duration: 0.5, delay: 0.3 }}
               className="text-gray-700"
             >
-              When I'm not coding, you can find me exploring new technologies, contributing to open-source projects, or enjoying a good cup of coffee while reading about the latest trends in web development.
+              I believe good software is not only about how it looks, but also how reliably it works. By combining development, design, and QA skills, I aim to create digital experiences that are both visually appealing and dependable.
+            </motion.p>
+            <motion.p
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: "-100px" }}
+              transition={{ duration: 0.5, delay: 0.4 }}
+              className="text-gray-700"
+            >
+              I’m continuously learning, experimenting with new tools, and improving my skills to grow as a well-rounded professional in the tech industry.
             </motion.p>
             
             <motion.div
@@ -74,7 +84,7 @@ export function About() {
             >
               <h3 className="text-xl mb-3">Quick Facts</h3>
               <ul className="space-y-2 text-gray-700">
-                {["📍 Location: Lalitpur, Nepal", "🎓 Education: Bachelor's in Information Management", "💼 Experience: just an intern", "🎯 Focus: Modern web technologies & user experience"].map((fact, index) => (
+                {["📍 Location: Lalitpur, Nepal", "🎓 Education: Bachelor’s in Information Management (BIM)", "💡 Core Skills: Frontend Development, UI/UX Design, Manual QA Testing", "🎯 Focus: Usability, software quality, and real-world user experience"].map((fact, index) => (
                   <motion.li
                     key={index}
                     initial={{ opacity: 0, x: -20 }}
@@ -90,6 +100,6 @@ export function About() {
           </motion.div>
         </div>
       </div>
-    </section>
+    </AnimatedSection>
   );
 }
