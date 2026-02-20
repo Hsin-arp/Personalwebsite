@@ -83,12 +83,12 @@ export function Hero() {
         ))}
       </div>
 
-      <div className="text-center text-white px-4 relative z-10">
+      <div className="text-center text-white px-4 sm:px-6 lg:px-8 relative z-10 max-w-4xl mx-auto">
         <motion.h1
           initial={{ opacity: 0, scale: 0.8 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ duration: 0.8, delay: 0.2 }}
-          className="text-5xl md:text-7xl mb-6"
+          className="text-4xl sm:text-5xl md:text-7xl mb-6"
         >
           Hi, I'm{" "}
           <span className="inline-flex" style={{ color: "#60a5fa" }}>
@@ -125,7 +125,7 @@ export function Hero() {
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ duration: 0.8, delay: 0.8 }}
-          className="text-xl md:text-2xl mb-8 text-gray-200"
+          className="text-lg sm:text-xl md:text-2xl mb-8 text-gray-200"
         >
           <div className="flex flex-wrap justify-center gap-3 items-center">
             {roles.map((role, roleIndex) => {
@@ -210,16 +210,17 @@ export function Hero() {
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 1.8 }}
-          className="flex gap-4 justify-center"
+          className="flex flex-col sm:flex-row gap-4 justify-center items-center w-full max-w-md"
         >
           <motion.div
             whileHover={{ scale: 1.05, rotate: [0, -2, 2, 0] }}
             whileTap={{ scale: 0.95 }}
+            className="w-full sm:w-auto"
           >
             <Button
               size="lg"
               onClick={() => scrollToSection("projects")}
-              className="bg-blue-500 hover:bg-blue-600"
+              className="bg-blue-500 hover:bg-blue-600 w-full sm:w-auto"
             >
               View My Work
             </Button>
@@ -227,12 +228,13 @@ export function Hero() {
           <motion.div
             whileHover={{ scale: 1.05, rotate: [0, 2, -2, 0] }}
             whileTap={{ scale: 0.95 }}
+            className="w-full sm:w-auto"
           >
             <Button
               size="lg"
               variant="outline"
               onClick={() => scrollToSection("contact")}
-              className="bg-transparent border-white text-white hover:bg-white hover:text-black"
+              className="bg-transparent border-white text-white hover:bg-white hover:text-black w-full sm:w-auto"
             >
               Contact Me
             </Button>
