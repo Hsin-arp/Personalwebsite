@@ -1,8 +1,7 @@
 
   # Personal Website
 
-  This is a code bundle for Personal Website. The original project is available at https://www.figma.com/design/RqQnr4DN94PauDnXxj3UtX/Personal-Website.
-
+  This is a code bundle for Personal Website. The original project is available at https://www.prabin369.com.np
   ## Running the code
 
   Run `npm i` to install the dependencies.
